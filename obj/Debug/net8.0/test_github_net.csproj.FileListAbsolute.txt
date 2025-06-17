@@ -1,0 +1,15 @@
+/workspaces/test_github_net/obj/Debug/net8.0/test_github_net.GeneratedMSBuildEditorConfig.editorconfig
+/workspaces/test_github_net/obj/Debug/net8.0/test_github_net.AssemblyInfoInputs.cache
+/workspaces/test_github_net/obj/Debug/net8.0/test_github_net.AssemblyInfo.cs
+/workspaces/test_github_net/obj/Debug/net8.0/test_github_net.csproj.CoreCompileInputs.cache
+/workspaces/test_github_net/obj/Debug/net8.0/test_github_net.sourcelink.json
+/workspaces/test_github_net/bin/Debug/net8.0/test_github_net
+/workspaces/test_github_net/bin/Debug/net8.0/test_github_net.deps.json
+/workspaces/test_github_net/bin/Debug/net8.0/test_github_net.runtimeconfig.json
+/workspaces/test_github_net/bin/Debug/net8.0/test_github_net.dll
+/workspaces/test_github_net/bin/Debug/net8.0/test_github_net.pdb
+/workspaces/test_github_net/obj/Debug/net8.0/test_github_net.dll
+/workspaces/test_github_net/obj/Debug/net8.0/refint/test_github_net.dll
+/workspaces/test_github_net/obj/Debug/net8.0/test_github_net.pdb
+/workspaces/test_github_net/obj/Debug/net8.0/test_github_net.genruntimeconfig.cache
+/workspaces/test_github_net/obj/Debug/net8.0/ref/test_github_net.dll
