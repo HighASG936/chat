@@ -883,7 +883,8 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "Microsoft.AspNetCore.SignalR.Client >= 9.0.6"
+      "Microsoft.AspNetCore.SignalR.Client >= 9.0.6",
+      "Microsoft.Extensions.DependencyInjection >= 9.0.6"
     ]
   },
   "packageFolders": {
@@ -929,6 +930,10 @@
         "targetAlias": "net8.0",
         "dependencies": {
           "Microsoft.AspNetCore.SignalR.Client": {
+            "target": "Package",
+            "version": "[9.0.6, )"
+          },
+          "Microsoft.Extensions.DependencyInjection": {
             "target": "Package",
             "version": "[9.0.6, )"
           }
