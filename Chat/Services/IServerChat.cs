@@ -1,7 +1,7 @@
 
 namespace Services
 {
-    interface IServerChat()
+    interface IServerChat
     {
         void Connect();
     }
