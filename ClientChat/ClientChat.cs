@@ -1,35 +1,26 @@
+using System.Net.Sockets;
+using System.Text;
 
-using Microsoft.AspNetCore.SignalR.Client;
+namespace ClientChat;
 
-namespace Chat
+public class ChatClient : IClientChat
 {
-    class ClientChat() : ChatBase, IClientChat
+    public async Task Start()
     {
-        private HubConnection _connection;
+        using var client = new TcpClient();
+        await client.ConnectAsync("localhost", 5000);
+        Console.WriteLine("Conectado al servidor");
 
-        public ClientChat()
-        {
-            _connection = new HubConnectionBuilder()
-                .WithUrl(ServerUrl)
-                .Build();
+        using var stream = client.GetStream();
 
-            _connection.On<string, string>("ReceiveMessage", (user, message) =>
-            {
-                Console.WriteLine($"{user}: {message}");
-            });
-        }
+        var message = "Hola desde el cliente";
+        var buffer = Encoding.UTF8.GetBytes(message);
+        await stream.WriteAsync(buffer, 0, buffer.Length);
+        Console.WriteLine("Mensaje enviado: " + message);
 
-        public async Task ConnectAsync()
-        {
-            await _connection.StartAsync();
-            Console.WriteLine("✅ Cliente conectado.");
-
-            while (true)
-            {
-                var message = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(message)) continue;
-                await _connection.InvokeAsync("SendMessage", "Cliente", message);
-            }
-        }
+        var responseBuffer = new byte[1024];
+        var bytesRead = await stream.ReadAsync(responseBuffer);
+        var response = Encoding.UTF8.GetString(responseBuffer, 0, bytesRead);
+        Console.WriteLine("Respuesta del servidor: " + response);
     }
 }
