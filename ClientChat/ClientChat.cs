@@ -1,3 +1,4 @@
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
@@ -7,20 +8,24 @@ public class ChatClient : IClientChat
 {
     public async Task Start()
     {
-        using var client = new TcpClient();
-        await client.ConnectAsync("localhost", 5000);
-        Console.WriteLine("Conectado al servidor");
+        Console.WriteLine("Connecting...");
 
-        using var stream = client.GetStream();
+        using var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-        var message = "Hola desde el cliente";
+        await socket.ConnectAsync(new IPEndPoint(IPAddress.Loopback, 55000));
+        Console.WriteLine("Connected to server");
+
+        var message = "Hello from client";
         var buffer = Encoding.UTF8.GetBytes(message);
-        await stream.WriteAsync(buffer, 0, buffer.Length);
-        Console.WriteLine("Mensaje enviado: " + message);
+
+        await socket.SendAsync(buffer);
+        Console.WriteLine("Sent message: " + message);
 
         var responseBuffer = new byte[1024];
-        var bytesRead = await stream.ReadAsync(responseBuffer);
+        int bytesRead = await socket.ReceiveAsync(responseBuffer);
         var response = Encoding.UTF8.GetString(responseBuffer, 0, bytesRead);
-        Console.WriteLine("Respuesta del servidor: " + response);
+        Console.WriteLine("Reply from server: " + response);
+
+        socket.Close();
     }
 }
