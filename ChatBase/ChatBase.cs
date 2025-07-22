@@ -1,7 +1,7 @@
 
-namespace Chat
+namespace ChatBase
 {
-    abstract class ChatBase()
+    public abstract class ChatBase
     {
         protected const string ServerUrl = "http://localhost:5000/chatHub";
     }
