@@ -1,43 +1,35 @@
-
-using Microsoft.AspNetCore.SignalR.Client;
+using System.Net;
+using System.Net.Sockets;
 
 namespace ServerChat.Services
 {
-    public class ServerChat : ChatBase.ChatBase, IServerChat
+    public class ServerChat : IServerChat
     {
-        private HubConnection _connection; 
+        private readonly TcpListener _listener;
 
-        private async void StartConnection()
+        public ServerChat()
         {
-            try
-            {
-                await _connection.StartAsync();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error connecting to server: {ex.Message}");
-                return;
-            }
+            _listener = new TcpListener(IPAddress.Any, 5000);
         }
 
         public async Task Start()
         {
-            _connection = new HubConnectionBuilder() 
-                .WithUrl(ServerUrl)
-                .Build();
-
-            _connection.On<string, string>("ReceiveMessage", (user, message) =>
-            {
-                Console.WriteLine($"{user}: {message}");
-            });
-
-            StartConnection();
+            _listener.Start();
+            Console.WriteLine("Server listening in port 5000...");
 
             while (true)
             {
-                var message = Console.ReadLine();
-                await _connection.InvokeAsync("SendMessage", "Usuario", message);
+                var client = await _listener.AcceptTcpClientAsync();
+                Console.WriteLine("Connected Client");
+                _ = HandleClient(client);
             }
         }
+
+        private static Task HandleClient(TcpClient client)
+        {
+            using var stream = client.GetStream();
+            return Task.CompletedTask;
+        }
     }
+
 }
