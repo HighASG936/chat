@@ -1,2 +1,6 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿
+using ClientChat;
+
+var client = new ChatClient();
+await client.Start();
+

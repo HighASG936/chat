@@ -1,8 +1,8 @@
 
-namespace Services
+namespace ClientChat
 {
     interface IClientChat
     {
-        Task ConnectAsync();
+        Task Start();
     }
 }
